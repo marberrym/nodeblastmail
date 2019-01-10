@@ -33,8 +33,18 @@ var transporter = nodemailer.createTransport({
 function msgSend(env) {
     console.log(env);
     let body = template.plainText(env).toString();
-    console.log('body:');
     console.log(body);
+    transporter.sendMail({
+        from: 'Piedmont Ridge Builders <matthew.piedmontridgebuilders@gmail.com>',
+        to: env.email, //email address of our recipient
+        subject: 'We want to buy your Atlanta property',
+        text: body
+   }, (error, info) => {
+        if (error) {
+             return console.log(error);
+        }
+        console.log('Message sent: %s', info.messageId);
+   });
 }
 
 function get_list() {
